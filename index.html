@@ -5,15 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LifeSync — Build the Life You Want</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- PayPal SDK — replace YOUR_CLIENT_ID with your PayPal client ID -->
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Animations handled in animations.js -->
+  <!-- Smooth scroll handled by CSS -->
+  <!-- PayPal SDK -->
   <script src="https://www.paypal.com/sdk/js?client-id=AQfdu8ueIxE6E-16_0dxXRj_GZ4AiYZEfj-UrQaCs84cbaQHEmKTJhHwyo4hIAFtEM0OVlhAwd06MIPN&currency=USD"></script>
 </head>
 <body>
 
+  <!-- 3D PARTICLE CANVAS -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- GRADIENT ORBS -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- CURSOR GLOW -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
   <!-- NAV -->
-  <nav>
+  <nav id="mainNav">
     <div class="nav-inner">
-      <div class="logo">LifeSync</div>
+      <div class="logo">
+        <span class="logo-dot"></span>
+        LifeSync
+      </div>
       <div class="nav-links">
         <a href="#how">How It Works</a>
         <a href="#features">Features</a>
@@ -24,54 +46,100 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero-text">
-      <span class="badge">Your Year. Your Lock Screen.</span>
-      <h1>Every dot is a<br /><span class="accent">day you showed up.</span></h1>
-      <p>Crushed your goals today? Mark the day done and a dot lights up on your wallpaper. Watch your year fill up — one dot at a time.</p>
-      <div class="hero-cta">
-        <a href="#download" class="btn-primary">Get Started</a>
-        <a href="#how" class="btn-ghost">See How It Works</a>
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="badge" data-animate="fade-up">
+          <span class="badge-dot"></span>
+          Your Year. Your Lock Screen.
+        </div>
+        <h1 data-animate="split-up">
+          <span class="line">Every dot is a</span>
+          <span class="line accent-line">day you showed up.</span>
+        </h1>
+        <p data-animate="fade-up" data-delay="0.4">Crushed your goals today? Mark the day done and a dot lights up on your wallpaper. Watch your year fill up — one dot at a time.</p>
+        <div class="hero-cta" data-animate="fade-up" data-delay="0.6">
+          <a href="#download" class="btn-primary">
+            <span>Get Started</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#how" class="btn-ghost">See How It Works</a>
+        </div>
+      </div>
+      <div class="hero-phones" data-animate="phones-3d">
+        <div class="phone-3d-wrapper">
+          <div class="phone dark-phone" id="darkPhone">
+            <div class="phone-screen-glare"></div>
+            <img src="images/wallpaper-dark-edited.png" alt="LifeSync Dark Mode Wallpaper" class="phone-img" />
+          </div>
+          <div class="phone light-phone" id="lightPhone">
+            <div class="phone-screen-glare"></div>
+            <img src="images/wallpaper-light-edited.png" alt="LifeSync Light Mode Wallpaper" class="phone-img" />
+          </div>
+        </div>
       </div>
     </div>
-    <div class="hero-phones">
-      <div class="phone dark-phone">
-        <img src="images/wallpaper-dark-edited.png" alt="LifeSync Dark Mode Wallpaper" class="phone-img" />
-      </div>
-      <div class="phone light-phone">
-        <img src="images/wallpaper-light-edited.png" alt="LifeSync Light Mode Wallpaper" class="phone-img" />
-      </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" data-animate="fade-up" data-delay="1.2">
+      <div class="scroll-line"></div>
+      <span>Scroll to explore</span>
     </div>
   </section>
 
   <!-- STATS BAR -->
-  <section class="stats-bar">
-    <div class="stat"><span class="stat-num">365</span><span class="stat-label">Days in a year</span></div>
-    <div class="divider"></div>
-    <div class="stat"><span class="stat-num">1</span><span class="stat-label">Dot per day crushed</span></div>
-    <div class="divider"></div>
-    <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Motivation</span></div>
-    <div class="divider"></div>
-    <div class="stat"><span class="stat-num">2</span><span class="stat-label">Themes: dark & light</span></div>
+  <section class="stats-bar" id="statsBar">
+    <div class="stats-inner">
+      <div class="stat">
+        <span class="stat-num" data-count="365">0</span>
+        <span class="stat-label">Days in a year</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num" data-static>1</span>
+        <span class="stat-label">Dot per day crushed</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num" data-static>∞</span>
+        <span class="stat-label">Motivation</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num" data-count="2">0</span>
+        <span class="stat-label">Themes: dark & light</span>
+      </div>
+    </div>
   </section>
 
   <!-- HOW IT WORKS -->
   <section class="how" id="how">
-    <div class="section-label">How It Works</div>
-    <h2>Simple by design.<br />Powerful by habit.</h2>
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>Simple by design.<br /><span class="text-gradient">Powerful by habit.</span></h2>
+    </div>
     <div class="steps">
-      <div class="step">
+      <div class="step-card" data-tilt>
         <div class="step-number">01</div>
+        <div class="step-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
         <h3>Crush Your Goals</h3>
         <p>Go about your day. Hit the gym, read, meditate, stay hydrated — whatever your goals are. Your rules.</p>
       </div>
-      <div class="step">
+      <div class="step-card" data-tilt>
         <div class="step-number">02</div>
+        <div class="step-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
         <h3>Mark the Day Done</h3>
         <p>At the end of the day, confirm you showed up. A new dot lights up on your wallpaper instantly.</p>
       </div>
-      <div class="step">
+      <div class="step-card" data-tilt>
         <div class="step-number">03</div>
+        <div class="step-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
         <h3>Watch Your Year Fill</h3>
         <p>Every dot is proof. By December, your lock screen tells the story of exactly who you became.</p>
       </div>
@@ -80,58 +148,76 @@
 
   <!-- FULL YEAR CALENDAR SHOWCASE -->
   <section class="story" id="story">
-    <div class="section-label">Your Story</div>
-    <h2>A whole year.<br />Right on your lock screen.</h2>
-    <p class="story-sub">This is what a real person's year looks like — not perfect, but consistent. That's the point.</p>
+    <div class="section-header">
+      <div class="section-label">Your Story</div>
+      <h2>A whole year.<br /><span class="text-gradient">Right on your lock screen.</span></h2>
+      <p class="story-sub">This is what a real person's year looks like — not perfect, but consistent. That's the point.</p>
+    </div>
 
     <div class="year-showcase">
       <div class="year-phone-wrap">
         <div class="year-phone">
+          <div class="phone-screen-glare"></div>
           <img src="images/wallpaper-dark-edited.png" alt="LifeSync Dark Mode — Full Year" class="year-img" />
         </div>
-        <div class="phone-label dark-label">Dark Mode</div>
+        <div class="phone-label">Dark Mode</div>
       </div>
       <div class="year-phone-wrap">
         <div class="year-phone year-phone-light">
+          <div class="phone-screen-glare"></div>
           <img src="images/wallpaper-light-edited.png" alt="LifeSync Light Mode — Full Year" class="year-img" />
         </div>
-        <div class="phone-label light-label">Light Mode</div>
+        <div class="phone-label">Light Mode</div>
       </div>
     </div>
   </section>
 
   <!-- FEATURES -->
   <section class="features" id="features">
-    <div class="section-label">Features</div>
-    <h2>Everything you need.<br />Nothing you don't.</h2>
+    <div class="section-header">
+      <div class="section-label">Features</div>
+      <h2>Everything you need.<br /><span class="text-gradient">Nothing you don't.</span></h2>
+    </div>
     <div class="feature-grid">
-      <div class="feature-card">
-        <div class="feature-icon">◉</div>
+      <div class="feature-card" data-tilt>
+        <div class="feature-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12" y2="18.01" stroke-width="2"/></svg>
+        </div>
         <h3>Always on Your Lock Screen</h3>
         <p>Your progress is the first thing you see every time you pick up your phone. No app to open. Ever.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">◑</div>
+      <div class="feature-card" data-tilt>
+        <div class="feature-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
         <h3>Dark & Light Themes</h3>
         <p>Matches your iPhone perfectly. Glowing white dots in dark mode, bold black dots in light.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">◎</div>
+      <div class="feature-card" data-tilt>
+        <div class="feature-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
         <h3>See Your Streaks</h3>
         <p>Consecutive dots form visible streaks. Gaps are visible too. That's the accountability you need.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">●</div>
+      <div class="feature-card" data-tilt>
+        <div class="feature-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
         <h3>One Tap, Done</h3>
         <p>Finished your goals? One tap to mark the day. Your wallpaper updates instantly with a new dot.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">○</div>
+      <div class="feature-card" data-tilt>
+        <div class="feature-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
         <h3>Pay Once, Own Forever</h3>
         <p>$9.99 one time. No subscriptions, no trials, no in-app purchases. It's yours for life.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">◐</div>
+      <div class="feature-card" data-tilt>
+        <div class="feature-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
         <h3>100% On Your Device</h3>
         <p>No accounts. No sign-ups. No data leaving your phone. Just you and your dots.</p>
       </div>
@@ -140,29 +226,49 @@
 
   <!-- TESTIMONIALS -->
   <section class="testimonials">
-    <div class="section-label">Real People</div>
-    <h2>The dots don't lie.</h2>
+    <div class="section-header">
+      <div class="section-label">Real People</div>
+      <h2>The dots don't lie.</h2>
+    </div>
     <div class="testi-grid">
-      <div class="testi-card">
+      <div class="testi-card" data-tilt data-tilt-max="5">
         <div class="testi-dots">
           <span class="td on"></span><span class="td on"></span><span class="td on"></span><span class="td on"></span><span class="td off"></span><span class="td on"></span><span class="td on"></span>
         </div>
         <p>"Seeing the empty dots on my lock screen genuinely bothers me — in the best way. I haven't missed a day in 4 months."</p>
-        <div class="testi-name">— Sara M., 4-month streak</div>
+        <div class="testi-author">
+          <div class="testi-avatar">SM</div>
+          <div>
+            <div class="testi-name">Sara M.</div>
+            <div class="testi-streak">4-month streak</div>
+          </div>
+        </div>
       </div>
-      <div class="testi-card">
+      <div class="testi-card" data-tilt data-tilt-max="5">
         <div class="testi-dots">
           <span class="td on"></span><span class="td on"></span><span class="td off"></span><span class="td on"></span><span class="td on"></span><span class="td on"></span><span class="td on"></span>
         </div>
         <p>"I check my phone 50 times a day. Now every single time, I see proof of who I'm becoming. That's powerful."</p>
-        <div class="testi-name">— James K., 78 days in</div>
+        <div class="testi-author">
+          <div class="testi-avatar">JK</div>
+          <div>
+            <div class="testi-name">James K.</div>
+            <div class="testi-streak">78 days in</div>
+          </div>
+        </div>
       </div>
-      <div class="testi-card">
+      <div class="testi-card" data-tilt data-tilt-max="5">
         <div class="testi-dots">
           <span class="td on"></span><span class="td on"></span><span class="td on"></span><span class="td off"></span><span class="td off"></span><span class="td on"></span><span class="td on"></span>
         </div>
         <p>"No app, no notifications, no complexity. Just me, my goals, and a dot at the end of the day. This is how it should be."</p>
-        <div class="testi-name">— Priya T., started January 1st</div>
+        <div class="testi-author">
+          <div class="testi-avatar">PT</div>
+          <div>
+            <div class="testi-name">Priya T.</div>
+            <div class="testi-streak">Started January 1st</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -170,8 +276,10 @@
   <!-- PURCHASE SECTION -->
   <section class="download" id="download">
     <div class="download-inner">
-      <h2>Own it forever.<br /><span class="accent">$9.99. One time.</span></h2>
-      <p>Choose your wallpaper style, pay once, and get instant access. No subscriptions. No hidden fees.</p>
+      <div class="section-header">
+        <h2>Own it forever.<br /><span class="text-gradient">$9.99. One time.</span></h2>
+        <p>Choose your wallpaper style, pay once, and get instant access. No subscriptions. No hidden fees.</p>
+      </div>
 
       <!-- WALLPAPER SELECTOR -->
       <div class="wallpaper-selector">
@@ -217,7 +325,10 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <div class="footer-logo">LifeSync</div>
+      <div class="footer-logo">
+        <span class="logo-dot"></span>
+        LifeSync
+      </div>
       <div class="footer-links">
         <a href="#">Privacy</a>
         <a href="#">Terms</a>
