@@ -1220,12 +1220,17 @@ footer {
    RESPONSIVE
    ===================== */
 @media (max-width: 900px) {
+  /* Hide heavy GPU effects on mobile */
+  #bg-canvas { display: none; }
+  .orb { display: none; }
+  .cursor-glow { display: none; }
+
   .hero-content {
     flex-direction: column;
     text-align: center;
-    gap: 48px;
+    gap: 40px;
   }
-  .hero { padding-top: 110px; min-height: auto; padding-bottom: 80px; }
+  .hero { padding-top: 100px; min-height: auto; padding-bottom: 60px; }
   .hero-text { max-width: 100%; }
   .hero-text h1 { font-size: clamp(2.2rem, 6vw, 3rem); }
   .hero-text p { max-width: 480px; margin-left: auto; margin-right: auto; }
@@ -1234,7 +1239,7 @@ footer {
   .steps { grid-template-columns: 1fr; }
   .feature-grid { grid-template-columns: repeat(2, 1fr); }
   .testi-grid { grid-template-columns: 1fr; }
-  .stats-inner { flex-wrap: wrap; gap: 32px; }
+  .stats-inner { flex-wrap: wrap; gap: 24px; }
   .stat { padding: 0 32px; }
   .stat-divider { display: none; }
   .nav-links a:not(.btn-nav) { display: none; }
@@ -1242,21 +1247,30 @@ footer {
   .year-phone { width: 260px; border-radius: 40px; }
   .scroll-indicator { display: none; }
   .section-label::before { display: none; }
-  section { padding: 80px 24px; }
+  section { padding: 64px 24px; }
+  .stats-bar { padding: 36px 24px; }
+  .section-header { margin-bottom: 40px; }
   .nav-inner { padding: 14px 20px; }
+
+  /* Remove hover-only effects on mobile */
+  .step-card:hover, .feature-card:hover, .testi-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
 }
 
 @media (max-width: 600px) {
   .feature-grid { grid-template-columns: 1fr; }
   .btn-nav { padding: 9px 18px; font-size: 0.8rem; }
-  section { padding: 60px 16px; }
+  section { padding: 48px 16px; }
+  .stats-bar { padding: 28px 16px; }
   .wallpaper-selector { flex-direction: column; align-items: center; }
 
-  .hero { padding-top: 90px; padding-bottom: 50px; }
-  .hero-content { gap: 36px; }
-  .hero-text h1 { font-size: clamp(1.9rem, 7vw, 2.4rem); }
-  .hero-text p { font-size: 0.92rem; line-height: 1.7; margin-bottom: 32px; }
-  .badge { margin-bottom: 20px; font-size: 0.65rem; }
+  .hero { padding-top: 90px; padding-bottom: 40px; }
+  .hero-content { gap: 32px; }
+  .hero-text h1 { font-size: clamp(1.9rem, 7vw, 2.4rem); margin-bottom: 18px; }
+  .hero-text p { font-size: 0.92rem; line-height: 1.7; margin-bottom: 28px; }
+  .badge { margin-bottom: 16px; font-size: 0.65rem; }
 
   /* Hero buttons */
   .hero-cta { gap: 12px; }
@@ -1264,42 +1278,52 @@ footer {
   .btn-ghost { padding: 13px 24px; font-size: 0.9rem; }
 
   /* Hero phones — nice size for mobile */
-  .hero-phones { max-width: 320px; }
+  .hero-phones { max-width: 300px; }
   .phone-3d-wrapper { gap: 12px; }
   .phone { border-radius: 28px; }
   .phone-screen-glare { border-radius: 28px; }
   .dark-phone, .light-phone {
     width: 46%;
-    max-width: 150px;
+    max-width: 140px;
     transform: rotateY(0) rotateX(0) translateZ(0) !important;
     box-shadow: 0 15px 40px rgba(0,0,0,0.5);
   }
-  .dark-phone { transform: rotateY(-8deg) translateZ(10px) !important; }
-  .light-phone { transform: rotateY(8deg) translateZ(-5px) !important; }
+  .dark-phone { transform: rotateY(-5deg) translateZ(5px) !important; }
+  .light-phone { transform: rotateY(5deg) translateZ(-3px) !important; }
 
   /* Stats bar */
-  .stats-inner { gap: 24px; padding: 24px 16px; }
-  .stat-num { font-size: 1.8rem; }
+  .stats-inner { gap: 20px; padding: 0; flex-wrap: wrap; }
+  .stat { padding: 8px 20px; }
+  .stat-num { font-size: 1.6rem; }
+  .stat-label { font-size: 0.65rem; }
 
   /* Year showcase phones */
-  .year-showcase { gap: 20px; padding: 0; flex-direction: row; }
-  .year-phone-wrap { gap: 12px; }
-  .year-phone { width: 155px; border-radius: 28px; }
-  .year-label { font-size: 0.7rem; }
+  .year-showcase { gap: 16px; padding: 0; flex-direction: row; }
+  .year-phone-wrap { gap: 10px; }
+  .year-phone { width: 150px; border-radius: 24px; }
+  .phone-label { font-size: 0.7rem; }
 
   /* Section headers */
-  h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+  h2 { font-size: clamp(1.6rem, 6vw, 2.2rem); margin-bottom: 12px; }
+  .section-header { margin-bottom: 32px; }
+  .story .section-header { margin-bottom: 40px; }
   .story-sub { font-size: 0.88rem; }
 
-  /* Cards */
-  .step-card, .feature-card { padding: 28px 20px; }
-  .testi-card { padding: 28px 20px; }
+  /* Cards — tighter padding */
+  .step-card, .feature-card { padding: 24px 18px; border-radius: 18px; }
+  .testi-card { padding: 24px 18px; border-radius: 18px; }
+  .step-card h3, .feature-card h3 { font-size: 1rem; }
+  .step-card p, .feature-card p { font-size: 0.85rem; }
 
   /* Purchase section */
-  .price-tag { font-size: 3rem; }
-  .purchase-note { font-size: 0.8rem; }
+  .download { padding: 48px 16px; }
+  .price-amount { font-size: 2.4rem; }
+  .price-label { font-size: 0.82rem; }
+  .price-tag { margin-bottom: 28px; }
 
   /* Footer */
-  .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
-  .footer-links { justify-content: center; }
+  footer { padding: 28px 16px; }
+  .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+  .footer-links { justify-content: center; gap: 20px; }
+  .footer-links a { font-size: 0.78rem; }
 }

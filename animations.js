@@ -3,10 +3,14 @@
 (function() {
   'use strict';
 
+  const isMobile = window.innerWidth <= 768;
+
   // =====================
   // THREE.JS PARTICLE BACKGROUND
   // =====================
   function initParticles() {
+    // Skip Three.js entirely on mobile — saves GPU & battery
+    if (isMobile) return;
     if (typeof THREE === 'undefined') return;
 
     const canvas = document.getElementById('bg-canvas');
@@ -14,7 +18,7 @@
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -74,35 +78,39 @@
   initParticles();
 
   // =====================
-  // CURSOR GLOW
+  // CURSOR GLOW (desktop only)
   // =====================
-  const cursorGlow = document.getElementById('cursorGlow');
-  if (cursorGlow) {
-    let glowActive = false;
-    document.addEventListener('mousemove', (e) => {
-      if (!glowActive) { cursorGlow.classList.add('active'); glowActive = true; }
-      cursorGlow.style.left = e.clientX + 'px';
-      cursorGlow.style.top = e.clientY + 'px';
+  if (!isMobile) {
+    const cursorGlow = document.getElementById('cursorGlow');
+    if (cursorGlow) {
+      let glowActive = false;
+      document.addEventListener('mousemove', (e) => {
+        if (!glowActive) { cursorGlow.classList.add('active'); glowActive = true; }
+        cursorGlow.style.left = e.clientX + 'px';
+        cursorGlow.style.top = e.clientY + 'px';
+      });
+    }
+  }
+
+  // =====================
+  // CARD SPOTLIGHT EFFECT (desktop only)
+  // =====================
+  if (!isMobile) {
+    document.querySelectorAll('.step-card, .feature-card, .testi-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mouse-x', x + '%');
+        card.style.setProperty('--mouse-y', y + '%');
+      });
     });
   }
 
   // =====================
-  // CARD SPOTLIGHT EFFECT
+  // 3D TILT EFFECT ON HOVER (desktop only)
   // =====================
-  document.querySelectorAll('.step-card, .feature-card, .testi-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      card.style.setProperty('--mouse-x', x + '%');
-      card.style.setProperty('--mouse-y', y + '%');
-    });
-  });
-
-  // =====================
-  // 3D TILT EFFECT ON HOVER
-  // =====================
-  if (window.innerWidth > 768) {
+  if (!isMobile) {
     document.querySelectorAll('[data-tilt]').forEach(el => {
       const maxTilt = parseFloat(el.dataset.tiltMax) || 10;
       let currentTiltX = 0, currentTiltY = 0;
@@ -150,13 +158,18 @@
   // SCROLL REVEAL (IntersectionObserver)
   // =====================
 
+  // On mobile: smaller translate, bigger rootMargin so elements reveal earlier
+  const revealDistance = isMobile ? '20px' : '40px';
+  const revealGridDistance = isMobile ? '25px' : '50px';
+  const revealMargin = isMobile ? '0px 0px 120px 0px' : '0px 0px 50px 0px';
+
   // Simple reveal for individual elements
   const revealEls = document.querySelectorAll('.section-header, .year-phone-wrap, .wallpaper-selector, .price-tag, #paypal-button-container, .stats-inner');
 
   revealEls.forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(40px)';
-    el.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+    el.style.transform = `translateY(${revealDistance})`;
+    el.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
   });
 
   const revealObs = new IntersectionObserver((entries) => {
@@ -167,7 +180,7 @@
         revealObs.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
+  }, { threshold: 0.01, rootMargin: revealMargin });
 
   revealEls.forEach(el => revealObs.observe(el));
 
@@ -175,10 +188,11 @@
   const staggerGrids = document.querySelectorAll('.steps, .feature-grid, .testi-grid');
   staggerGrids.forEach(grid => {
     const children = Array.from(grid.children);
+    const staggerDelay = isMobile ? 0.06 : 0.12;
     children.forEach((child, i) => {
       child.style.opacity = '0';
-      child.style.transform = 'translateY(50px)';
-      child.style.transition = `opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.12}s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.12}s`;
+      child.style.transform = `translateY(${revealGridDistance})`;
+      child.style.transition = `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${i * staggerDelay}s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${i * staggerDelay}s`;
     });
 
     const gridObs = new IntersectionObserver((entries) => {
@@ -191,7 +205,7 @@
           gridObs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
+    }, { threshold: 0.01, rootMargin: revealMargin });
 
     gridObs.observe(grid);
   });
@@ -272,7 +286,7 @@
   const darkPhone = document.getElementById('darkPhone');
   const lightPhone = document.getElementById('lightPhone');
 
-  if (darkPhone && lightPhone && window.innerWidth > 768) {
+  if (darkPhone && lightPhone && !isMobile) {
     let phoneMouseX = 0, phoneMouseY = 0;
     let phoneScrollFactor = 0;
 
