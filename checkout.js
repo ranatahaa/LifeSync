@@ -46,6 +46,7 @@ renderPreviewDots('wp-dots-light', false);
 function showSuccessScreen(name, theme) {
   const downloadLink = DOWNLOAD_LINKS[theme];
   const themeLabel = theme === 'dark' ? 'Dark Mode' : 'Light Mode';
+  const shortcutName = theme === 'dark' ? 'LifeSync (Dark)' : 'LifeSync (Light)';
 
   // Replace the entire purchase section content
   const downloadSection = document.querySelector('.download-inner');
@@ -67,8 +68,8 @@ function showSuccessScreen(name, theme) {
       <div class="install-card">
         <div class="install-card-header">
           <div class="install-step-badge">Step 1</div>
-          <h3>Install LifeSync</h3>
-          <p>Tap the button below on your iPhone to add LifeSync.</p>
+          <h3>Install ${shortcutName}</h3>
+          <p>Tap the button below on your iPhone to add ${shortcutName}.</p>
         </div>
         <a href="${downloadLink}" target="_blank" class="btn-install">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -86,7 +87,7 @@ function showSuccessScreen(name, theme) {
         <div class="setup-guide-header">
           <div class="install-step-badge">Step 2</div>
           <h3>Quick Setup</h3>
-          <p>Choose how you want to trigger LifeSync each day.</p>
+          <p>Choose how you want to trigger ${shortcutName} each day.</p>
         </div>
 
         <div class="setup-methods">
@@ -97,7 +98,7 @@ function showSuccessScreen(name, theme) {
             <h4>Add to Home Screen</h4>
             <ol>
               <li>Open the <strong>Shortcuts</strong> app</li>
-              <li>Find and long-press <strong>"LifeSync"</strong></li>
+              <li>Find and long-press <strong>"${shortcutName}"</strong></li>
               <li>Select <strong>"Share"</strong> from the menu</li>
               <li>Tap <strong>"Add to Home Screen"</strong></li>
               <li>Customize the icon color and design</li>
@@ -116,7 +117,7 @@ function showSuccessScreen(name, theme) {
               <li>Find and tap <strong>"Back Tap"</strong></li>
               <li>Select <strong>"Double Tap"</strong></li>
               <li>Scroll to the <strong>Shortcuts</strong> section</li>
-              <li>Find and select <strong>"LifeSync"</strong></li>
+              <li>Find and select <strong>"${shortcutName}"</strong></li>
             </ol>
             <p class="method-result">Double-tap the back of your iPhone to log your day.</p>
           </div>
@@ -131,7 +132,7 @@ function showSuccessScreen(name, theme) {
               <li>Find and tap <strong>"Action Button"</strong></li>
               <li>Swipe through options until you see <strong>Shortcut</strong></li>
               <li>Tap <strong>"Choose a Shortcut"</strong></li>
-              <li>Select <strong>"LifeSync"</strong></li>
+              <li>Select <strong>"${shortcutName}"</strong></li>
             </ol>
             <p class="method-result">Press the Action Button to log your day instantly.</p>
           </div>
