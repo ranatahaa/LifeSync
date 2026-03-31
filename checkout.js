@@ -107,8 +107,7 @@ function showSuccessScreen(name, theme) {
           </div>
 
           <!-- Method 2 -->
-          <div class="method-card method-recommended">
-            <div class="method-badge">Recommended</div>
+          <div class="method-card">
             <div class="method-number">Option B</div>
             <h4>Back Tap</h4>
             <ol>
