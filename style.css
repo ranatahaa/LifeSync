@@ -1107,65 +1107,312 @@ h2 {
   font-size: 0.72rem;
 }
 
-/* Payment success */
-.payment-success {
-  background: var(--surface);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: var(--radius);
-  padding: 44px 36px;
-  text-align: center;
+/* =====================
+   POST-PURCHASE SUCCESS PAGE
+   ===================== */
+.success-page {
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-.success-icon {
-  width: 56px;
-  height: 56px;
+.success-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.success-check {
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background: var(--text);
   color: #050505;
-  font-size: 1.4rem;
-  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 20px;
+  margin: 0 auto 24px;
+  animation: success-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.payment-success h3 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
+@keyframes success-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
 }
 
-.payment-success p {
-  font-size: 0.92rem !important;
-  margin-bottom: 22px !important;
+.success-header h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: 12px;
 }
 
-.btn-download-wp {
+.success-sub {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.success-sub strong {
+  color: var(--text);
+}
+
+/* Install Card */
+.install-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 32px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.install-card-header {
+  margin-bottom: 28px;
+}
+
+.install-step-badge {
   display: inline-block;
-  background: var(--text);
-  color: #050505;
-  padding: 14px 32px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  padding: 5px 14px;
   border-radius: 100px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   margin-bottom: 16px;
 }
-.btn-download-wp:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(255,255,255,0.15);
+
+.install-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
 }
 
-.success-note {
-  font-size: 0.78rem !important;
+.install-card p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.btn-install {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--text);
+  color: #050505;
+  padding: 16px 36px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.01em;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-install::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn-install:hover::before { left: 100%; }
+
+.btn-install:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(255,255,255,0.2);
+}
+
+.install-note {
+  font-size: 0.76rem !important;
   color: var(--text-muted) !important;
+  margin-top: 14px !important;
   margin-bottom: 0 !important;
+}
+
+/* Setup Guide */
+.setup-guide {
+  margin-bottom: 32px;
+}
+
+.setup-guide-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.setup-guide-header h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.setup-guide-header p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.setup-methods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.method-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 28px 22px;
+  position: relative;
+  transition: border-color 0.3s;
+}
+
+.method-card:hover {
+  border-color: var(--border-hover);
+}
+
+.method-recommended {
+  border-color: rgba(255,255,255,0.15);
+  background: linear-gradient(to bottom, rgba(255,255,255,0.03), var(--surface));
+}
+
+.method-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #050505;
+  background: var(--text);
+  padding: 3px 12px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.method-number {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.method-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.method-note {
+  font-size: 0.76rem !important;
+  color: var(--text-muted) !important;
+  margin-bottom: 12px !important;
+  font-style: italic;
+}
+
+.method-card ol {
+  list-style: none;
+  counter-reset: steps;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+
+.method-card ol li {
+  counter-increment: steps;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding: 4px 0 4px 28px;
+  position: relative;
+}
+
+.method-card ol li::before {
+  content: counter(steps);
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.method-card ol li strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.method-result {
+  font-size: 0.8rem !important;
+  color: var(--text-muted) !important;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  margin-bottom: 0 !important;
+  line-height: 1.5 !important;
+}
+
+/* Success footer */
+.success-footer-note {
+  text-align: center;
+  padding: 24px 0 0;
+}
+
+.success-footer-note p {
+  font-size: 0.8rem !important;
+  color: var(--text-muted) !important;
+  max-width: 480px;
+  margin: 0 auto !important;
+  line-height: 1.6 !important;
 }
 
 .pay-error {
   color: #ff6b6b !important;
   font-size: 0.88rem !important;
   margin-top: 12px !important;
+}
+
+/* PayPal placeholder */
+.paypal-placeholder {
+  background: var(--surface);
+  border: 1px dashed rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  padding: 28px;
+  margin-bottom: 8px;
+}
+
+.paypal-placeholder p {
+  font-size: 0.88rem !important;
+  color: var(--text-muted) !important;
+  margin-bottom: 8px !important;
+}
+
+.setup-note {
+  font-size: 0.76rem !important;
+  color: var(--text-muted) !important;
+}
+
+.setup-note code {
+  background: rgba(255,255,255,0.06);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.72rem;
 }
 
 /* =====================
@@ -1257,6 +1504,11 @@ footer {
     transform: none;
     box-shadow: none;
   }
+
+  /* Success page mobile */
+  .setup-methods { grid-template-columns: 1fr; gap: 12px; }
+  .install-card { padding: 32px 24px; }
+  .method-card { padding: 24px 18px; }
 }
 
 @media (max-width: 600px) {
@@ -1326,4 +1578,16 @@ footer {
   .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
   .footer-links { justify-content: center; gap: 20px; }
   .footer-links a { font-size: 0.78rem; }
+
+  /* Success page small mobile */
+  .success-header { margin-bottom: 32px; }
+  .success-check { width: 52px; height: 52px; }
+  .success-check svg { width: 24px; height: 24px; }
+  .install-card { padding: 28px 18px; }
+  .install-card h3 { font-size: 1.1rem; }
+  .btn-install { padding: 14px 30px; font-size: 0.92rem; }
+  .method-card { padding: 22px 16px; }
+  .method-card h4 { font-size: 0.95rem; }
+  .method-card ol li { font-size: 0.8rem; padding-left: 24px; }
+  .method-card ol li::before { width: 18px; height: 18px; font-size: 0.62rem; }
 }
