@@ -401,6 +401,8 @@ nav.scrolled {
   box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
 }
 
+.iphone-di-hidden { display: none; }
+
 /* Screen area */
 .iphone-screen {
   border-radius: 34px;
