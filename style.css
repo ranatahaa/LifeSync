@@ -351,122 +351,83 @@ nav.scrolled {
 }
 
 /* =====================
-   HERO PHONES — iPhone Frame
+   HERO PHONES — iPhone 15 Pro
    ===================== */
 .hero-phones {
   flex-shrink: 0;
-  perspective: 1200px;
   width: 480px;
 }
 
 .phone-3d-wrapper {
   display: flex;
-  gap: 24px;
+  gap: 28px;
   align-items: center;
-  transform-style: preserve-3d;
   justify-content: center;
 }
 
-/* iPhone outer frame */
-.iphone-frame {
+/* iPhone device shell — realistic iPhone 15 Pro proportions */
+.iphone {
   position: relative;
-  width: 210px;
+  width: 200px;
   will-change: transform;
 }
 
-.iphone-bezel {
-  background: #1a1a1a;
-  border-radius: 44px;
-  padding: 12px;
+.iphone-shell {
+  /* Titanium frame */
+  background: #2c2c2e;
+  border-radius: 46px;
+  padding: 4px;
   position: relative;
-  border: 1px solid rgba(255,255,255,0.12);
+  /* Realistic layered shadow */
   box-shadow:
-    0 25px 60px rgba(0,0,0,0.6),
-    inset 0 0 0 1px rgba(255,255,255,0.05),
-    0 0 0 1px rgba(0,0,0,0.8);
-  overflow: hidden;
+    0 2px 4px rgba(0,0,0,0.3),
+    0 8px 24px rgba(0,0,0,0.4),
+    0 24px 56px rgba(0,0,0,0.5);
+  /* Subtle titanium edge highlight */
+  border: 0.5px solid rgba(255,255,255,0.15);
 }
 
-/* Dynamic Island */
-.iphone-dynamic-island {
+/* Stainless steel edge reflection */
+.iphone-shell::before {
+  content: '';
   position: absolute;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 72px;
-  height: 22px;
-  background: #000;
-  border-radius: 20px;
-  z-index: 10;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+  inset: 0;
+  border-radius: 46px;
+  border: 0.5px solid rgba(255,255,255,0.08);
+  pointer-events: none;
+  z-index: 5;
 }
 
-.iphone-di-hidden { display: none; }
-
-/* Screen area */
 .iphone-screen {
-  border-radius: 34px;
+  border-radius: 42px;
   overflow: hidden;
   position: relative;
   background: #000;
 }
 
-.phone-screen-glare {
+/* Glass reflection */
+.iphone-screen::after {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 40%, transparent 100%);
+  background: linear-gradient(
+    165deg,
+    rgba(255,255,255,0.06) 0%,
+    transparent 35%,
+    transparent 100%
+  );
   z-index: 2;
   pointer-events: none;
+  border-radius: 42px;
 }
 
 .phone-img {
   width: 100%;
   height: auto;
   display: block;
-}
-
-/* Side buttons */
-.iphone-button-right {
-  position: absolute;
-  right: -2px;
-  top: 120px;
-  width: 3px;
-  height: 48px;
-  background: linear-gradient(to bottom, #2a2a2a, #1a1a1a, #2a2a2a);
-  border-radius: 0 2px 2px 0;
-}
-
-.iphone-button-left-top {
-  position: absolute;
-  left: -2px;
-  top: 90px;
-  width: 3px;
-  height: 24px;
-  background: linear-gradient(to bottom, #2a2a2a, #1a1a1a, #2a2a2a);
-  border-radius: 2px 0 0 2px;
-}
-
-.iphone-button-left-mid {
-  position: absolute;
-  left: -2px;
-  top: 130px;
-  width: 3px;
-  height: 40px;
-  background: linear-gradient(to bottom, #2a2a2a, #1a1a1a, #2a2a2a);
-  border-radius: 2px 0 0 2px;
-}
-
-.iphone-button-left-bot {
-  position: absolute;
-  left: -2px;
-  top: 180px;
-  width: 3px;
-  height: 40px;
-  background: linear-gradient(to bottom, #2a2a2a, #1a1a1a, #2a2a2a);
-  border-radius: 2px 0 0 2px;
 }
 
 /* Float animation */
@@ -479,16 +440,16 @@ nav.scrolled {
 }
 
 @keyframes phone-float {
-  0%, 100% { transform: rotateX(2deg) rotateY(-2deg) translateY(0); }
-  50% { transform: rotateX(2deg) rotateY(-2deg) translateY(-16px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
 }
 
-/* Phone hover */
-.iphone-frame:hover .iphone-bezel {
+/* Hover lift */
+.iphone:hover .iphone-shell {
   box-shadow:
-    0 35px 80px rgba(0,0,0,0.7),
-    inset 0 0 0 1px rgba(255,255,255,0.08),
-    0 0 0 1px rgba(0,0,0,0.8);
+    0 4px 8px rgba(0,0,0,0.3),
+    0 12px 32px rgba(0,0,0,0.45),
+    0 32px 72px rgba(0,0,0,0.55);
 }
 
 /* =====================
@@ -1609,17 +1570,12 @@ footer {
   .phone-3d-wrapper { gap: 12px; }
   .phone { border-radius: 28px; }
   .phone-screen-glare { border-radius: 28px; }
-  .iphone-frame {
+  .iphone {
     width: 46%;
     max-width: 150px;
   }
-  .iphone-bezel { border-radius: 28px; padding: 8px; }
-  .iphone-screen { border-radius: 22px; }
-  .iphone-dynamic-island { width: 48px; height: 15px; top: 11px; border-radius: 12px; }
-  .iphone-button-right,
-  .iphone-button-left-top,
-  .iphone-button-left-mid,
-  .iphone-button-left-bot { display: none; }
+  .iphone-shell { border-radius: 30px; padding: 3px; }
+  .iphone-screen { border-radius: 27px; }
   .dark-phone, .light-phone {
     animation: phone-float-mobile 5s ease-in-out infinite;
   }
