@@ -227,12 +227,12 @@
     const element = document.querySelector(el);
     if (!element) return;
     element.style.opacity = '0';
-    element.style.transform = el.includes('phone') ? 'translateY(80px) rotateY(-20deg)' : 'translateY(30px)';
+    element.style.transform = el.includes('phone') ? 'translateY(60px) scale(0.95)' : 'translateY(30px)';
     element.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)';
 
     setTimeout(() => {
       element.style.opacity = '1';
-      element.style.transform = el.includes('phone') ? 'translateY(0) rotateY(0deg)' : 'translateY(0)';
+      element.style.transform = el.includes('phone') ? 'translateY(0) scale(1)' : 'translateY(0)';
     }, delay);
   });
 
@@ -280,32 +280,7 @@
     lastScroll = currentScroll;
   });
 
-  // =====================
-  // HERO PHONE MOUSE PARALLAX (3D)
-  // =====================
-  const darkPhone = document.getElementById('darkPhone');
-  const lightPhone = document.getElementById('lightPhone');
-
-  if (darkPhone && lightPhone && !isMobile) {
-    let phoneMouseX = 0, phoneMouseY = 0;
-    let phoneScrollFactor = 0;
-
-    function updatePhoneTransforms() {
-      darkPhone.style.transform = `rotateY(${-15 + phoneMouseX * 8}deg) rotateX(${5 + phoneMouseY * -5}deg) translateZ(20px) translateY(${-phoneScrollFactor}px)`;
-      lightPhone.style.transform = `rotateY(${10 + phoneMouseX * 8}deg) rotateX(${-3 + phoneMouseY * -5}deg) translateZ(-10px) translateY(${-phoneScrollFactor * 0.6}px)`;
-    }
-
-    document.addEventListener('mousemove', (e) => {
-      phoneMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-      phoneMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-      updatePhoneTransforms();
-    });
-
-    window.addEventListener('scroll', () => {
-      phoneScrollFactor = window.pageYOffset * 0.15;
-      updatePhoneTransforms();
-    });
-  }
+  // Hero phones use CSS float animation only — no JS parallax needed
 
   // =====================
   // SMOOTH SCROLL FOR ANCHOR LINKS

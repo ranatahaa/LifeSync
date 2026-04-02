@@ -372,7 +372,6 @@ nav.scrolled {
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.1);
   position: relative;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
   will-change: transform;
   box-shadow: 0 25px 60px rgba(0,0,0,0.5);
@@ -393,13 +392,29 @@ nav.scrolled {
 .dark-phone {
   width: 210px;
   max-height: 500px;
-  transform: rotateY(-15deg) rotateX(5deg) translateZ(20px);
+  animation: phone-float 6s ease-in-out infinite;
+  transform: rotateX(2deg) rotateY(-3deg);
 }
 
 .light-phone {
   width: 210px;
   max-height: 500px;
-  transform: rotateY(10deg) rotateX(-3deg) translateZ(-10px);
+  animation: phone-float 6s ease-in-out 1.5s infinite;
+  transform: rotateX(2deg) rotateY(3deg);
+}
+
+@keyframes phone-float {
+  0%, 100% { transform: rotateX(2deg) rotateY(-3deg) translateY(0); }
+  50% { transform: rotateX(2deg) rotateY(-3deg) translateY(-16px); }
+}
+
+.light-phone {
+  animation-name: phone-float-light;
+}
+
+@keyframes phone-float-light {
+  0%, 100% { transform: rotateX(2deg) rotateY(3deg) translateY(0); }
+  50% { transform: rotateX(2deg) rotateY(3deg) translateY(-16px); }
 }
 
 .phone-img {
@@ -412,7 +427,6 @@ nav.scrolled {
 
 /* Phone hover interaction */
 .phone:hover {
-  transform: rotateY(0deg) rotateX(0deg) translateZ(40px) scale(1.03);
   box-shadow: 0 35px 80px rgba(0,0,0,0.6);
 }
 
@@ -1537,11 +1551,14 @@ footer {
   .dark-phone, .light-phone {
     width: 46%;
     max-width: 140px;
-    transform: rotateY(0) rotateX(0) translateZ(0) !important;
     box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    animation: phone-float-mobile 5s ease-in-out infinite;
   }
-  .dark-phone { transform: rotateY(-5deg) translateZ(5px) !important; }
-  .light-phone { transform: rotateY(5deg) translateZ(-3px) !important; }
+  .light-phone { animation-delay: 1.2s; }
+  @keyframes phone-float-mobile {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
 
   /* Stats bar */
   .stats-inner { gap: 20px; padding: 0; flex-wrap: wrap; }
