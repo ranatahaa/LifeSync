@@ -164,7 +164,7 @@
   const revealMargin = isMobile ? '0px 0px 120px 0px' : '0px 0px 50px 0px';
 
   // Simple reveal for individual elements
-  const revealEls = document.querySelectorAll('.section-header, .year-phone-wrap, .wallpaper-selector, .price-tag, #paypal-button-container, .stats-inner');
+  const revealEls = document.querySelectorAll('.section-header, .year-phone-wrap, .wallpaper-selector, .price-tag, #paddle-buy-btn, .stats-inner');
 
   revealEls.forEach(el => {
     el.style.opacity = '0';

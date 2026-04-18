@@ -1102,13 +1102,6 @@ h2 {
   font-weight: 400;
 }
 
-/* PayPal button area */
-#paypal-button-container {
-  max-width: 400px;
-  margin: 0 auto 28px;
-  min-height: 50px;
-}
-
 .secure-note {
   font-size: 0.78rem !important;
   color: var(--text-muted) !important;
@@ -1422,21 +1415,6 @@ h2 {
   color: #ff6b6b !important;
   font-size: 0.88rem !important;
   margin-top: 12px !important;
-}
-
-/* PayPal placeholder */
-.paypal-placeholder {
-  background: var(--surface);
-  border: 1px dashed rgba(255,255,255,0.1);
-  border-radius: var(--radius-sm);
-  padding: 28px;
-  margin-bottom: 8px;
-}
-
-.paypal-placeholder p {
-  font-size: 0.88rem !important;
-  color: var(--text-muted) !important;
-  margin-bottom: 8px !important;
 }
 
 .setup-note {
