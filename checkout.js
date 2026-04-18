@@ -1,4 +1,4 @@
-// LifeSync Checkout — PayPal Integration
+// LifeSync Checkout — Paddle Integration
 
 let selectedTheme = 'dark';
 
@@ -7,10 +7,32 @@ const DOWNLOAD_LINKS = {
   light: 'https://www.icloud.com/shortcuts/af637c2810c240bfac643ee4ed93d733'
 };
 
+const PRICE_IDS = {
+  dark: 'pri_01kpgxnw6y5q5357mc9vw12amv',
+  light: 'pri_01kpgxsjn5jxfh0d6zb5tsh0a6'
+};
+
+// Initialize Paddle
+Paddle.Initialize({
+  token: 'live_6b6dc7de7e35624bf9244f9d340',
+  eventCallback: function(data) {
+    if (data.name === 'checkout.completed') {
+      const email = data.data && data.data.customer ? data.data.customer.email : '';
+      showSuccessScreen('', selectedTheme);
+    }
+  }
+});
+
 function selectWallpaper(theme) {
   selectedTheme = theme;
   document.querySelectorAll('.wp-option').forEach(el => {
     el.classList.toggle('selected', el.dataset.theme === theme);
+  });
+}
+
+function openPaddleCheckout() {
+  Paddle.Checkout.open({
+    items: [{ priceId: PRICE_IDS[selectedTheme], quantity: 1 }]
   });
 }
 
@@ -150,52 +172,4 @@ function showSuccessScreen(name, theme) {
 
   // Smooth scroll to top of success screen
   downloadSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// PayPal Smart Buttons
-if (typeof paypal !== 'undefined') {
-  paypal.Buttons({
-    style: {
-      layout: 'vertical',
-      color: 'gold',
-      shape: 'pill',
-      label: 'pay',
-      height: 50
-    },
-
-    createOrder: function(data, actions) {
-      return actions.order.create({
-        purchase_units: [{
-          description: 'LifeSync Habit Wallpaper (' + selectedTheme + ' mode)',
-          amount: {
-            currency_code: 'USD',
-            value: '9.99'
-          }
-        }]
-      });
-    },
-
-    onApprove: function(data, actions) {
-      return actions.order.capture().then(function(details) {
-        const name = details.payer.name.given_name;
-        showSuccessScreen(name, selectedTheme);
-      });
-    },
-
-    onError: function(err) {
-      console.error('PayPal error:', err);
-      const container = document.getElementById('paypal-button-container');
-      container.insertAdjacentHTML('beforeend',
-        '<p class="pay-error">Something went wrong. Please try again or contact support.</p>'
-      );
-    }
-  }).render('#paypal-button-container');
-} else {
-  const container = document.getElementById('paypal-button-container');
-  container.innerHTML = `
-    <div class="paypal-placeholder">
-      <p>PayPal checkout will appear here once configured.</p>
-      <p class="setup-note">To activate: replace <code>YOUR_CLIENT_ID</code> in index.html with your PayPal client ID.</p>
-    </div>
-  `;
 }

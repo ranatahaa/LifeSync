@@ -13,8 +13,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Animations handled in animations.js -->
   <!-- Smooth scroll handled by CSS -->
-  <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AQfdu8ueIxE6E-16_0dxXRj_GZ4AiYZEfj-UrQaCs84cbaQHEmKTJhHwyo4hIAFtEM0OVlhAwd06MIPN&currency=USD"></script>
+  <!-- Paddle.js -->
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 </head>
 <body>
 
@@ -218,7 +218,7 @@
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <h3>Pay Once, Own Forever</h3>
-        <p>$9.99 one time. No subscriptions, no trials, no in-app purchases. It's yours for life.</p>
+        <p>$12.99 one time. No subscriptions, no trials, no in-app purchases. It's yours for life.</p>
       </div>
       <div class="feature-card" data-tilt>
         <div class="feature-icon-wrap">
@@ -317,14 +317,17 @@
       </div>
 
       <div class="price-tag">
-        <span class="price-amount">$9.99</span>
+        <span class="price-amount">$12.99</span>
         <span class="price-label">one-time purchase</span>
       </div>
 
-      <!-- PayPal Button Container -->
-      <div id="paypal-button-container"></div>
+      <!-- Paddle Buy Button -->
+      <button id="paddle-buy-btn" class="btn-primary btn-buy" onclick="openPaddleCheckout()">
+        <span>Get LifeSync Now</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
 
-      <p class="secure-note">Secure checkout via PayPal. Instant delivery after payment.</p>
+      <p class="secure-note">🔒 Secure checkout via Paddle. Instant delivery after payment.</p>
     </div>
   </section>
 
