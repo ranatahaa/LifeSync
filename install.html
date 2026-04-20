@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Install LifeSync</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body.install-body {
+      background: #000;
+      color: #fff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 48px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .install-wrap {
+      width: 100%;
+      max-width: 720px;
+    }
+    .install-loading, .install-error {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .install-loading .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255,255,255,0.12);
+      border-top-color: #fff;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .install-error h2 { font-size: 22px; margin: 0 0 10px; }
+    .install-error p { color: rgba(255,255,255,0.65); margin: 0 0 24px; }
+    .install-error a.back {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    /* Reuse success-page patterns inline so this page is self-contained */
+    .download-inner { width: 100%; }
+  </style>
+</head>
+<body class="install-body">
+  <div class="install-wrap">
+    <div class="download-inner">
+      <div id="install-root">
+        <div class="install-loading">
+          <div class="spinner"></div>
+          <p>Verifying your order&hellip;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const txn = params.get('txn');
+      const root = document.getElementById('install-root');
+
+      function renderError(msg) {
+        root.innerHTML = `
+          <div class="install-error">
+            <h2>We couldn't verify this link</h2>
+            <p>${msg}</p>
+            <a class="back" href="/">Back to LifeSync</a>
+          </div>
+        `;
+      }
+
+      function renderSuccess(data) {
+        const { themeLabel, shortcutName, downloadLink } = data;
+        root.innerHTML = `
+          <div class="success-page">
+            <div class="success-header">
+              <div class="success-check">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <h2>You're all set.</h2>
+              <p class="success-sub">Your <strong>${themeLabel}</strong> LifeSync wallpaper is ready to install.</p>
+            </div>
+
+            <div class="install-card">
+              <div class="install-card-header">
+                <div class="install-step-badge">Step 1</div>
+                <h3>Install ${shortcutName}</h3>
+                <p>Tap the button below on your iPhone to add ${shortcutName}.</p>
+              </div>
+              <a href="${downloadLink}" target="_blank" class="btn-install">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Tap to Install
+              </a>
+              <p class="install-note">Opens on your iPhone</p>
+            </div>
+
+            <div class="setup-guide">
+              <div class="setup-guide-header">
+                <div class="install-step-badge">Step 2</div>
+                <h3>Quick Setup</h3>
+                <p>Choose how you want to trigger ${shortcutName} each day.</p>
+              </div>
+
+              <div class="setup-methods">
+                <div class="method-card">
+                  <div class="method-number">Option A</div>
+                  <h4>Add to Home Screen</h4>
+                  <ol>
+                    <li>Open the <strong>Shortcuts</strong> app</li>
+                    <li>Find and long-press <strong>"${shortcutName}"</strong></li>
+                    <li>Select <strong>"Share"</strong> from the menu</li>
+                    <li>Tap <strong>"Add to Home Screen"</strong></li>
+                    <li>Customize the icon color and design</li>
+                    <li>Click <strong>"Add"</strong> in the top-right corner</li>
+                  </ol>
+                  <p class="method-result">You'll have a dedicated app icon on your home screen.</p>
+                </div>
+
+                <div class="method-card">
+                  <div class="method-number">Option B</div>
+                  <h4>Back Tap</h4>
+                  <ol>
+                    <li>Open <strong>Settings</strong></li>
+                    <li>Go to <strong>Accessibility &rarr; Touch</strong></li>
+                    <li>Find and tap <strong>"Back Tap"</strong></li>
+                    <li>Select <strong>"Double Tap"</strong></li>
+                    <li>Scroll to the <strong>Shortcuts</strong> section</li>
+                    <li>Find and select <strong>"${shortcutName}"</strong></li>
+                  </ol>
+                  <p class="method-result">Double-tap the back of your iPhone to log your day.</p>
+                </div>
+
+                <div class="method-card">
+                  <div class="method-number">Option C</div>
+                  <h4>Action Button</h4>
+                  <p class="method-note">iPhone 15 Pro and later only</p>
+                  <ol>
+                    <li>Open <strong>Settings</strong></li>
+                    <li>Find and tap <strong>"Action Button"</strong></li>
+                    <li>Swipe through options until you see <strong>Shortcut</strong></li>
+                    <li>Tap <strong>"Choose a Shortcut"</strong></li>
+                    <li>Select <strong>"${shortcutName}"</strong></li>
+                  </ol>
+                  <p class="method-result">Press the Action Button to log your day instantly.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="success-footer-note">
+              <p>Bookmark this page &mdash; you can return here anytime to reinstall.</p>
+            </div>
+          </div>
+        `;
+      }
+
+      if (!txn) {
+        renderError('This install link is missing its order reference. Please use the link from your receipt email.');
+        return;
+      }
+
+      fetch('/api/install?txn=' + encodeURIComponent(txn))
+        .then(async (r) => {
+          const data = await r.json().catch(() => ({}));
+          if (!r.ok) {
+            renderError(data.error || 'We couldn\u2019t find this order.');
+            return;
+          }
+          renderSuccess(data);
+        })
+        .catch(() => {
+          renderError('Network issue. Please refresh to try again.');
+        });
+    })();
+  </script>
+</body>
+</html>
