@@ -1108,6 +1108,41 @@ h2 {
   margin-bottom: 0 !important;
 }
 
+/* Compatibility notice right above buy button */
+.compat-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 10px 18px;
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  max-width: 100%;
+  text-align: left;
+}
+.compat-notice svg { flex-shrink: 0; opacity: 0.9; }
+.compat-notice strong { color: #fff; font-weight: 600; }
+
+/* Hero platform badge */
+.hero-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2px;
+}
+.hero-platform svg { opacity: 0.85; }
+
 /* Paddle Buy Button */
 .btn-buy {
   display: flex;
