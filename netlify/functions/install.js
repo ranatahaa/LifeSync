@@ -7,8 +7,8 @@ const PRICE_TO_THEME = {
 };
 
 const DOWNLOAD_LINKS = {
-  dark: 'https://www.icloud.com/shortcuts/397d7a86ce1947ca9201bf18d2ed4bee',
-  light: 'https://www.icloud.com/shortcuts/af637c2810c240bfac643ee4ed93d733'
+  dark: 'https://www.icloud.com/shortcuts/60edba87858647d1b2d4cc81a5d5d5bf',
+  light: 'https://www.icloud.com/shortcuts/3e0a88a6104d48879e89e97d762862a4'
 };
 
 exports.handler = async (event) => {
